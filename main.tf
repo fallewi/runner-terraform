@@ -20,7 +20,7 @@ variable "instance_type" {
 
 variable "ami_id" {
   description = "ID de l'AMI (Amazon Machine Image) pour l'instance EC2"
-  default     = "ami-0c55b159cbfafe1f0"  # Remplacez par une AMI appropriée pour votre région
+  default     = "ami-0715d656023fe21b4"  # Remplacez par une AMI appropriée pour votre région
 }
 
 variable "key_name" {
