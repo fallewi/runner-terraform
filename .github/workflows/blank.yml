@@ -39,7 +39,7 @@ jobs:
       continue-on-error: true  # Cette ligne permet d'ignorer les échecs de Checkov et de continuer
 
     - name: Télécharger le rapport Checkov comme artefact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: checkov-report
         path: checkov_report.json
