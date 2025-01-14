@@ -6,7 +6,7 @@ provider "aws" {
 variable "gitlab_runner_token" {
   description = "Le token d'enregistrement du GitLab Runner"
   type        = string
-  default = "glpat-VjWLycAni-f8RryCaVSs"
+  default = "glrt-t3_DBqQhVySPsdcFsVjKAKw"
 }
 
 data "aws_vpc" "default" {
