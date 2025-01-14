@@ -22,13 +22,14 @@ variable "ami_id" {
 variable "key_name" {
   description = "Nom de la clé SSH pour accéder à l'instance EC2"
   type        = string
+  default = "toto"
 }
 
 # Création d'une clé SSH (si vous n'en avez pas déjà une)
-resource "aws_key_pair" "gitlab_runner" {
-  key_name   = var.key_name
-  public_key = file("~/.ssh/id_rsa.pub")  # Assurez-vous que cette clé existe
-}
+#resource "aws_key_pair" "gitlab_runner" {
+  #key_name   = var.key_name
+  #public_key = file("~/.ssh/id_rsa.pub")  # Assurez-vous que cette clé existe
+#}
 
 # Création d'un groupe de sécurité pour autoriser l'accès SSH et HTTP
 resource "aws_security_group" "gitlab_runner_sg" {
