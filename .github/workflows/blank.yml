@@ -1,4 +1,4 @@
-name: Terraform CI/CD with Checkov
+name: Terraform CI/CD with Checkov and AWS Session Token
 
 on:
   push:
@@ -19,11 +19,12 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
 
-    - name: Configure AWS credentials
+    - name: Configure AWS credentials with session token
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # AWS session token
         aws-region: us-east-1  # Specify your region
 
     - name: Install Checkov
@@ -33,7 +34,7 @@ jobs:
 
     - name: Run Checkov Scan
       run: |
-        checkov -d . --skip-check CKV_AWS_26 --skip-check CKV_AWS_33  # Optionally skip certain checks if needed
+        checkov -d . --skip-check CKV_AWS_26 --skip-check CKV_AWS_33  # Optionally skip certain checks
 
     - name: Terraform Init
       run: terraform init
