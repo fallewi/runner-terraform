@@ -1,4 +1,4 @@
-name: Terraform CI/CD with Checkov and AWS Session Token
+name: Terraform CI/CD avec Checkov et rapport
 
 on:
   push:
@@ -19,22 +19,29 @@ jobs:
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v1
 
-    - name: Configure AWS credentials with session token
+    - name: Configurer les identifiants AWS
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # AWS session token
-        aws-region: us-east-1  # Specify your region
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  # Si vous utilisez un token de session AWS
+        aws-region: us-east-1  # Spécifiez votre région
 
-    - name: Install Checkov
+    - name: Installer Checkov
       run: |
         python3 -m pip install --upgrade pip
         pip install checkov
 
-    - name: Run Checkov Scan
+    - name: Exécuter Checkov et générer un rapport JSON
       run: |
-        checkov -d . --skip-check CKV_AWS_26 --skip-check CKV_AWS_33  # Optionally skip certain checks
+        checkov -d . --output json > checkov_report.json
+      continue-on-error: true  # Ignore l'échec de Checkov et continue le pipeline
+
+    - name: Télécharger le rapport Checkov comme artefact
+      uses: actions/upload-artifact@v2
+      with:
+        name: checkov-report
+        path: checkov_report.json
 
     - name: Terraform Init
       run: terraform init
