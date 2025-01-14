@@ -9,6 +9,10 @@ variable "gitlab_runner_token" {
   default = "glpat-VjWLycAni-f8RryCaVSs"
 }
 
+data "aws_vpc" "default" {
+  default = true
+}
+
 variable "instance_type" {
   description = "Type d'instance EC2"
   default     = "t2.micro"
@@ -35,7 +39,7 @@ variable "key_name" {
 resource "aws_security_group" "gitlab_runner_sg" {
   name        = "gitlab-runner-sg"
   description = "Groupe de sécurité pour GitLab Runner"
-
+  vpc_id      = data.aws_vpc.default.id
   ingress {
     from_port   = 22
     to_port     = 22
