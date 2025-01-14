@@ -37,9 +37,9 @@ variable "key_name" {
 
 # Création d'un groupe de sécurité pour autoriser l'accès SSH et HTTP
 resource "aws_security_group" "gitlab_runner_sg" {
-  name        = "gitlab-runner-sg"
+  name        = "gitlabrunnersg"
   description = "Groupe de sécurité pour GitLab Runner"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      =  data.aws_vpc.default.id
   ingress {
     from_port   = 22
     to_port     = 22
