@@ -26,7 +26,7 @@ variable "ami_id" {
 variable "key_name" {
   description = "Nom de la clé SSH pour accéder à l'instance EC2"
   type        = string
-  default = "toto"
+  default = "docker_en_video"
 }
 
 # Création d'une clé SSH (si vous n'en avez pas déjà une)
